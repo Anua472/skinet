@@ -1,0 +1,29 @@
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { CartItem } from '../../../shared/models/cart';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { CurrencyPipe } from '@angular/common';
+import { CartService } from '../../../core/services/cart.service';
+
+@Component({
+  selector: 'app-cart-item',
+  imports: [RouterLink, MatIconButton, MatIcon, MatButton, MatIconButton, CurrencyPipe],
+  templateUrl: './cart-item.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './cart-item.component.css',
+})
+export class CartItemComponent {
+  item = input.required<CartItem>();
+  cartService = inject(CartService);
+
+  incrementQuantity() {
+    this.cartService.addItemToCart(this.item());
+  }
+  decrementQuantity() {
+    this.cartService.removeItemFromCart(this.item().productId);
+  }
+  removeItemFromCart() {
+    this.cartService.removeItemFromCart(this.item().productId, this.item().quantity);
+  }
+}
