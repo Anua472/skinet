@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, output } from '@angular/core';
+import { Component, inject, OnInit, output, ChangeDetectionStrategy } from '@angular/core';
 import { Checkout } from '../../../../core/services/checkout';
 import { MatRadioModule } from '@angular/material/radio';
 import { CurrencyPipe } from '@angular/common';
@@ -10,6 +10,7 @@ import { DeliveryMethod } from '../../../../shared/models/deliveryMethod';
   selector: 'app-checkout-delivery',
   styleUrl: './checkout-delivery.css',
   templateUrl: './checkout-delivery.html',
+   changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class CheckoutDelivery implements OnInit {
   checkoutService = inject(Checkout);
