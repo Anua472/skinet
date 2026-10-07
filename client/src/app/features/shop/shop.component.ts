@@ -12,6 +12,7 @@ import { ShopParams } from '../../shared/models/shopParams';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Pagination } from '../../shared/models/pagination';
 import { FormsModule } from '@angular/forms';
+import { EmptyState } from '../../shared/components/empty-state/empty-state';
 
 @Component({
   selector: 'app-shop',
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     MatPaginator,
     FormsModule,
     MatIconButton,
+    EmptyState
   ],
   templateUrl: './shop.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -53,6 +55,10 @@ export class ShopComponent {
     this.getProducts();
   }
 
+  resetFilters(){
+    this.shopParams = new ShopParams();
+    this.getProducts();
+  }
   getProducts() {
     this.shopService.getProducts(this.shopParams).subscribe({
       next: (response) => this.products.set(response),
